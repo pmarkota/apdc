@@ -1,16 +1,26 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ImageUpload from '../../../components/checkup-images/ImageUpload';
 import ImageGallery from '../../../components/checkup-images/ImageGallery';
 import { RepositoryFactory } from '../../../lib/repositories/repository-factory';
 
-/**
- * Page for uploading and managing images for a specific checkup
- */
-export default function UploadCheckupImagesPage() {
+// Loading component for Suspense fallback
+function LoadingState() {
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="text-center py-16">
+        <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-blue-600 border-r-transparent"></div>
+        <p className="mt-4 text-gray-600">Loading checkup details...</p>
+      </div>
+    </div>
+  );
+}
+
+// Client component that uses useSearchParams
+function UploadCheckupImagesContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const checkupId = searchParams.get('checkupId');
@@ -19,16 +29,6 @@ export default function UploadCheckupImagesPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [refreshGallery, setRefreshGallery] = useState(false);
-  
-  useEffect(() => {
-    if (!checkupId) {
-      setError('Checkup ID is required');
-      setLoading(false);
-      return;
-    }
-    
-    loadCheckup();
-  }, [checkupId, loadCheckup]);
   
   const loadCheckup = async () => {
     try {
@@ -48,6 +48,16 @@ export default function UploadCheckupImagesPage() {
       setLoading(false);
     }
   };
+  
+  useEffect(() => {
+    if (!checkupId) {
+      setError('Checkup ID is required');
+      setLoading(false);
+      return;
+    }
+    
+    loadCheckup();
+  }, [checkupId]);
   
   const handleUploadSuccess = () => {
     // Toggle refresh trigger to reload the gallery
@@ -134,5 +144,16 @@ export default function UploadCheckupImagesPage() {
         />
       </div>
     </div>
+  );
+}
+
+/**
+ * Page for uploading and managing images for a specific checkup
+ */
+export default function UploadCheckupImagesPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <UploadCheckupImagesContent />
+    </Suspense>
   );
 }
