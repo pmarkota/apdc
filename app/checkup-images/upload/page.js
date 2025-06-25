@@ -28,7 +28,7 @@ export default function UploadCheckupImagesPage() {
     }
     
     loadCheckup();
-  }, [checkupId]);
+  }, [checkupId, loadCheckup]);
   
   const loadCheckup = async () => {
     try {

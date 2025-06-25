@@ -21,7 +21,7 @@ const ImageGallery = ({ checkupId, refreshTrigger, onImageDeleted }) => {
     if (checkupId) {
       loadImages();
     }
-  }, [checkupId, refreshTrigger]);
+  }, [checkupId, refreshTrigger, loadImages]);
   
   const loadImages = async () => {
     try {
@@ -122,10 +122,13 @@ const ImageGallery = ({ checkupId, refreshTrigger, onImageDeleted }) => {
             <div className="aspect-w-1 aspect-h-1 w-full">
               {/* Image thumbnail */}
               <div className="h-48 w-full relative cursor-pointer" onClick={() => handleImageClick(image)}>
-                <img 
+                <Image 
                   src={image.file_url} 
                   alt={`Checkup Image ${image.id}`}
                   className="object-cover h-full w-full"
+                  width={500}
+                  height={384}
+                  layout="responsive"
                 />
               </div>
             </div>
@@ -176,10 +179,14 @@ const ImageGallery = ({ checkupId, refreshTrigger, onImageDeleted }) => {
               </svg>
             </button>
             
-            <img 
+            <Image 
               src={selectedImage.file_url} 
               alt="Full size medical image"
               className="max-h-[80vh] mx-auto"
+              width={1024}
+              height={768}
+              layout="responsive"
+              objectFit="contain"
             />
             
             <div className="mt-4 flex justify-between items-center">

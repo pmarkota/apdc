@@ -244,7 +244,7 @@ export default function CheckupsPage() {
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
                   <div>
                     <h2 className="text-xl font-bold">
-                      {selectedPatient.first_name} {selectedPatient.last_name}'s Checkups
+                      {selectedPatient.first_name} {selectedPatient.last_name}&apos;s Checkups
                     </h2>
                     <p className="text-xs text-gray-500">Select a checkup to view details and manage images</p>
                   </div>

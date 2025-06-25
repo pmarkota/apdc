@@ -24,7 +24,7 @@ export default function CheckupDetailsPage({ params }) {
     if (id) {
       loadCheckupData();
     }
-  }, [id]);
+  }, [id, loadCheckupData]);
   
   const loadCheckupData = async () => {
     try {

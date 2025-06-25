@@ -251,7 +251,7 @@ export default function PrescriptionsPage() {
               <div className="clay-card p-6">
                 <div className="flex justify-between items-center mb-4">
                   <h2 className="text-xl font-bold">
-                    {selectedPatient.first_name} {selectedPatient.last_name}'s Prescriptions
+                    {selectedPatient.first_name} {selectedPatient.last_name}&apos;s Prescriptions
                   </h2>
                   <motion.button 
                     className="clay-button"
